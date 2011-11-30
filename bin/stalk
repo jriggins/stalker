@@ -14,8 +14,13 @@ file = "./#{file}" unless file.match(/^[\/.]/)
 require file
 
 trap('INT') do
-	puts "\rExiting"
-	exit
+  puts "\rExiting"
+    if RUBY_PLATFORM == "java"
+      require "java"
+      java.lang.System.exit(0)
+    end
+    
+    exit
 end
 
 Stalker.work jobs
